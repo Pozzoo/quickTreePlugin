@@ -15,13 +15,12 @@ public class BlockListener implements Listener {
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
-        if (QuickTree.getInstance().getWoodManager().isWoodenLogs(event.getBlock().getType())) {
-            Location location = event.getBlock().getLocation();
+        if (!(QuickTree.getInstance().getWoodManager().isWoodenLogs(event.getBlock().getType()))) return;
 
-            QuickTree.getInstance().getWoodManager().checkAround(location, event.getPlayer());
+        Location location = event.getBlock().getLocation();
 
-            QuickTree.getInstance().getWoodManager().destroyTree();
-        }
+        QuickTree.getInstance().getWoodManager().checkAround(location, event.getPlayer());
+        QuickTree.getInstance().getWoodManager().destroyTree();
     }
 
 }

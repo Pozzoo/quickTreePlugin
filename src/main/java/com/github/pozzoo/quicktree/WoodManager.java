@@ -6,8 +6,6 @@ import org.bukkit.entity.BlockDisplay;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Transformation;
 import org.bukkit.util.Vector;
-import org.joml.Vector3f;
-import org.joml.Vector3fc;
 
 import java.util.*;
 
@@ -17,9 +15,9 @@ public class WoodManager {
     private final List<Vector> coordsVector;
 
     public WoodManager() {
+        this.treeModel = new HashSet<>();
         this.coordsVector = new ArrayList<>();
         this.woods = new ArrayList<>();
-        this.treeModel = new HashSet<>();
 
         warmupWoods();
         warmupCoords();
@@ -46,7 +44,6 @@ public class WoodManager {
         coordsVector.add(new Vector(1, 0, 0));
         coordsVector.add(new Vector(1, 0, 0));
         coordsVector.add(new Vector(-1, 0, 1));
-
     }
 
     public boolean isWoodenLogs(Material material) {
@@ -84,25 +81,34 @@ public class WoodManager {
             location.add(0, 1, 0);
         }
 
-        //createTree(player);
+        createTree();
     }
 
-    private void createTree(Player player) {
+    private void createTree() {
         float index = 0;
 
         for (Location location : treeModel) {
+
+            int height = 0;
+
+            Location location1 = location.clone();
+
+            while (isWoodenLogs(location1.getBlock().getType())) {
+                location1.add(0, -1, 0);
+                height++;
+            }
 
             BlockDisplay blockDisplay = location.getWorld().spawn(location, BlockDisplay.class);
             blockDisplay.setBlock(location.getBlock().getBlockData());
 
             Transformation transformation = blockDisplay.getTransformation();
 
-            transformation.getLeftRotation().z = 1;
-            Vector3fc vector = transformation.getTranslation().add(-index, -index, 0);
-            transformation.getTranslation().set(vector);
-            transformation.getScale().set(0.5);
+            transformation.getLeftRotation().rotateZ((float) Math.toRadians(90));
+            transformation.getTranslation().x -= index;
+            transformation.getTranslation().y -= height - 1;
 
             blockDisplay.setTransformation(transformation);
+
             index++;
         }
     }
