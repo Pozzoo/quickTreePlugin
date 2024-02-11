@@ -3,8 +3,6 @@ package com.github.pozzoo.quicktree;
 import com.github.pozzoo.quicktree.Listeners.BlockListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.Random;
-
 public final class QuickTree extends JavaPlugin {
     private WoodManager woodManager;
     private static QuickTree instance;
