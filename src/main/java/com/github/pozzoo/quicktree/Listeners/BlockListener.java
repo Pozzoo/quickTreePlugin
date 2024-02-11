@@ -3,9 +3,12 @@ package com.github.pozzoo.quicktree.Listeners;
 import com.github.pozzoo.quicktree.QuickTree;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+
+import javax.swing.*;
 
 public class BlockListener implements Listener {
 
@@ -16,6 +19,7 @@ public class BlockListener implements Listener {
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
         if (!(QuickTree.getInstance().getWoodManager().isWoodenLogs(event.getBlock().getType()))) return;
+        if (event.getPlayer().isSneaking()) return;
 
         event.setCancelled(true);
 
