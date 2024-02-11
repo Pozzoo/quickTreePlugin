@@ -23,6 +23,10 @@ public class BlockListener implements Listener {
         Location location = event.getBlock().getLocation();
 
         QuickTree.getInstance().getWoodManager().checkAround(location);
+
+        event.getPlayer().getInventory().getItemInMainHand().damage(QuickTree.getInstance().getWoodManager().getTreeModelSet().size(), event.getPlayer());
+
+        QuickTree.getInstance().getWoodManager().destroyTree();
     }
 
 }

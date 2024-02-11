@@ -51,6 +51,8 @@ public class WoodManager {
         coordsVector.add(new Vector(-1, 0, 1));
     }
 
+    public Set<Location> getTreeModelSet() {return treeModel; }
+
     public boolean isWoodenLogs(Material material) {
         return this.woods.contains(material);
     }
@@ -133,8 +135,6 @@ public class WoodManager {
                 }
             }
         }.runTaskTimer(QuickTree.getInstance(), 0, 1);
-
-        destroyTree();
     }
 
     private void explodeBlocks() {
